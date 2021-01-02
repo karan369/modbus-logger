@@ -99,8 +99,21 @@ Add support for ModbusTCP and add bridge RTU to TCP vía ESP8266 and multi Influ
     ./read_modbus_device.py --help # Shows you all available parameters
     ```
 * To run the python script at system startup. Add to following lines to the end of /etc/rc.local but before exit:
-    ```sh
-    # Start Energy Meter Logger
-    /home/pi/energy-meter-logger/read_modbus_device.py --interval 60 > /var/log/modbus-logger.log &
+$ sudo nano /etc/rc.local
+
+##To add # Start Modbus logger in file
+   # Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+# Start Modbus Logger
+sudo python3 /home/pi/modbus-logger/setup.py install &
+
+sudo python3 /home/pi/modbus-logger/read_modbus_device.py --interval 10 > /var/$
+
+exit 0
+
     ```
     Log with potential errors are found in /var/log/modbus-logger.log
